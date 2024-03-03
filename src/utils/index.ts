@@ -78,17 +78,17 @@ interface AppManifest {
 }
 
 export async function getGamePath(gameCode: string) {
-  const configPath = await getSteamDirectory()
+  const steamPath = await getSteamDirectory()
 
-  const getPath = async () => {
+  const getGameBasePath = async () => {
     const contents = await readTextFile(
-      configPath + '\\steamapps\\libraryfolders.vdf'
+      steamPath + '\\steamapps\\libraryfolders.vdf'
     )
 
     let path = ''
     Object.values(parse(contents)['libraryfolders'] as LibraryFolders).some(
       item => {
-        Object.keys(item.apps).includes(gameCode)
+        if (!Object.keys(item.apps).includes(gameCode)) return false
         path = item.path.replace(/\\\\/g, '\\')
         return true
       }
@@ -96,16 +96,19 @@ export async function getGamePath(gameCode: string) {
 
     return path
   }
+  const basePath = await getGameBasePath()
+
   const getInstallDir = async () => {
     const contents = await readTextFile(
-      configPath + `\\steamapps\\appmanifest_${gameCode}.acf`
+      basePath + `\\steamapps\\appmanifest_${gameCode}.acf`
     )
 
     const appManifest: AppManifest = parse(contents)['AppState']
     return appManifest.installdir
   }
+  const installDir = await getInstallDir()
 
-  return (await getPath()) + '\\steamapps\\common\\' + (await getInstallDir())
+  return basePath + '\\steamapps\\common\\' + installDir
 }
 
 export async function getCurrentDirFilesNameList() {
