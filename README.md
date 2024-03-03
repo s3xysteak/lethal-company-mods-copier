@@ -2,7 +2,7 @@
 
 English | [简体中文](./README-zh.md)
 
-Not tested on Mac and Linux. As a developer, I guess this program can only run on Windows.
+Not tested on Mac and Linux. As a developer, I guess this program can only run on Windows 10/11.
 
 ## :warning: Notes
 
@@ -32,7 +32,3 @@ The program will copy files, so you should not run programs from suspicious sour
 ## Features
 
 This program will copy mod files and folders in the same directory to the game directory of Lethal Company. This is useful for distributing and facilitating installation for friends who are too lazy to install `r2modman` after creating mod packs with `r2modman`.
-
-## Technology Stack Introduction
-
-Built using `tauri`.
