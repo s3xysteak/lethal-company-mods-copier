@@ -1,7 +1,8 @@
 <script setup lang="tsx">
-import { ref } from 'vue'
 import { getGamePath, copyFiles, getCurrentDirFilesNameList } from '../utils'
 import { useModal } from '../components/useModal.tsx'
+
+const { t } = useI18n()
 
 const LETHAL_COMPANY_STEAM_CODE = '1966720'
 
@@ -33,13 +34,13 @@ async function run() {
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
     }
 
-    modal(<p class="py-4">处理成功 !</p>)
+    modal(<p class="py-4">{t('startCopy.success')}</p>)
   } catch (error) {
     console.error(error)
 
     modal(
       <>
-        <h3 class="font-bold text-lg">发生错误</h3>
+        <h3 class="font-bold text-lg">{t('startCopy.error')}</h3>
         <p class="py-4">{error}</p>
       </>
     )
@@ -55,7 +56,9 @@ async function run() {
 
     <button :disabled="loading" class="btn" @click="run">
       <span v-show="loading" class="loading" />
-      {{ loading ? '加载中...' : '点击复制mod到游戏目录' }}
+      <div v-show="loading">{{ t('startCopy.loading') }}</div>
+
+      <div v-show="!loading">{{ t('startCopy.common') }}</div>
     </button>
   </div>
 </template>
