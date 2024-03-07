@@ -11,6 +11,8 @@ import {
 import { parse } from '@node-steam/vdf'
 import { invoke } from '@tauri-apps/api/tauri'
 
+const { t } = useI18n()
+
 export async function isDirectory(path: string) {
   const res = await invoke('is_dir', { path })
   return res as boolean | string
@@ -60,6 +62,8 @@ export async function getSteamDirectory() {
 
   const res = await command(steamInstallDirectoryQuery)
   const InstallPath = res.find(item => item.startsWith('InstallPath'))
+
+  if (InstallPath === undefined) throw new Error(t('osError.getSteamDirectory'))
 
   return InstallPath && InstallPath.slice(InstallPath.indexOf(':') + 1).trim()
 }

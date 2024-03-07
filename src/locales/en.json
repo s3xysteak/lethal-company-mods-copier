@@ -4,5 +4,8 @@
     "loading": "Loading...",
     "success": "Success !",
     "error": "Error"
+  },
+  "osError": {
+    "getSteamDirectory": "Failed to get the Steam directory"
   }
 }
