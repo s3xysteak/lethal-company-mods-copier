@@ -4,8 +4,5 @@
     "loading": "加载中...",
     "success": "处理成功 !",
     "error": "发生错误"
-  },
-  "osError": {
-    "getSteamDirectory": "无法找到Steam目录"
   }
 }

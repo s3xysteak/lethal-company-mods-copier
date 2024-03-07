@@ -1,6 +1,12 @@
+## 0.0.4 (2024.3.07)
+
+### Bug
+
+- fix u18n error.
+
 ## 0.0.3 (2024.3.07)
 
-## Feature
+### Feature
 
 - Add icon for error and success modal.
 

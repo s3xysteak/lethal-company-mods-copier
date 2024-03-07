@@ -49,7 +49,7 @@ async function run() {
           <div class="bg-red-5 i-carbon-close-outline" />
           {t('startCopy.error')}
         </h3>
-        <p class="py-4">{error}</p>
+        <p class="py-4">{String(error)}</p>
       </>
     )
   }
