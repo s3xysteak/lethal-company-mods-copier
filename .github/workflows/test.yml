@@ -23,6 +23,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get install libgtk-3-dev
 
       - run: pnpm i
 
