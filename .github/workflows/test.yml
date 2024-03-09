@@ -24,19 +24,8 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
       - run: |
-          sudo api-get -Syu
-          sudo api-get -S --needed \
-          webkit2gtk \
-          base-devel \
-          curl \
-          wget \
-          file \
-          openssl \
-          appmenu-gtk-module \
-          gtk3 \
-          libappindicator-gtk3 \
-          librsvg \
-          libvips
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev
 
       - run: pnpm i
 
