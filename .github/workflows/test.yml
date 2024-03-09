@@ -24,8 +24,8 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
       - run: |
-          sudo pacman -Syu
-          sudo pacman -S --needed \
+          sudo api-get -Syu
+          sudo api-get -S --needed \
           webkit2gtk \
           base-devel \
           curl \
