@@ -23,7 +23,20 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - uses: dtolnay/rust-toolchain@stable
-      - run: sudo apt-get install libgtk-3-dev
+      - run: |
+          sudo pacman -Syu
+          sudo pacman -S --needed \
+          webkit2gtk \
+          base-devel \
+          curl \
+          wget \
+          file \
+          openssl \
+          appmenu-gtk-module \
+          gtk3 \
+          libappindicator-gtk3 \
+          librsvg \
+          libvips
 
       - run: pnpm i
 
