@@ -1,6 +1,6 @@
 [package]
 name = "lethal-company-mods-copier"
-version = "0.0.2"
+version = "0.0.4"
 description = "Copy files to target game folder."
 authors = ["s3xysteak"]
 edition = "2021"

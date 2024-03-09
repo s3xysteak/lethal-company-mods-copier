@@ -34,14 +34,22 @@ async function run() {
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
     }
 
-    modal(<p class="py-4">{t('startCopy.success')}</p>)
+    modal(
+      <div class="flex items-center gap-x-2">
+        <div class="bg-green i-carbon-checkmark-outline" />
+        <p class="py-4">{t('startCopy.success')}</p>
+      </div>
+    )
   } catch (error) {
     console.error(error)
 
     modal(
       <>
-        <h3 class="font-bold text-lg">{t('startCopy.error')}</h3>
-        <p class="py-4">{error}</p>
+        <h3 class="flex items-center gap-x-2 font-bold text-lg">
+          <div class="bg-red-5 i-carbon-close-outline" />
+          {t('startCopy.error')}
+        </h3>
+        <p class="py-4">{String(error)}</p>
       </>
     )
   }

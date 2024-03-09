@@ -1,6 +1,6 @@
 {
   "startCopy": {
-    "common": "Click to copy the mod to the game directory",
+    "common": "Copy mod to game directory",
     "loading": "Loading...",
     "success": "Success !",
     "error": "Error"

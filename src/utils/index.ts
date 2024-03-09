@@ -61,6 +61,9 @@ export async function getSteamDirectory() {
   const res = await command(steamInstallDirectoryQuery)
   const InstallPath = res.find(item => item.startsWith('InstallPath'))
 
+  if (InstallPath === undefined)
+    throw new Error('Failed to get the Steam directory')
+
   return InstallPath && InstallPath.slice(InstallPath.indexOf(':') + 1).trim()
 }
 
