@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.4",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s3xysteak/lethal-company-mods-copier.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
