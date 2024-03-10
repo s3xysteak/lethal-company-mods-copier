@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "lethal-company-mods-copier",
-    "version": "0.0.4"
+    "version": "0.0.5"
   },
   "tauri": {
     "allowlist": {
@@ -17,7 +17,9 @@
       },
       "fs": {
         "all": true,
-        "scope": ["**/*"]
+        "scope": [
+          "**/*"
+        ]
       },
       "shell": {
         "all": true,
