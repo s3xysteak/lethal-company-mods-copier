@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "release": "esno ./scripts/release.ts"
   },
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
