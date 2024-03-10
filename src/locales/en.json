@@ -2,7 +2,10 @@
   "startCopy": {
     "common": "Copy mod to game directory",
     "loading": "Loading...",
-    "success": "Success !",
+    "success": {
+      "title": "Success !",
+      "content": "Now you can close the app and play with the mod !"
+    },
     "error": "Error"
   }
 }

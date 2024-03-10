@@ -35,10 +35,13 @@ async function run() {
     }
 
     modal(
-      <div class="flex items-center gap-x-2">
-        <div class="bg-green i-carbon-checkmark-outline" />
-        <p class="py-4">{t('startCopy.success')}</p>
-      </div>
+      <>
+        <div class="flex items-center gap-x-2 font-bold text-lg">
+          <div class="bg-green i-carbon-checkmark-outline" />
+          {t('startCopy.success.title')}
+        </div>
+        <p class="py-4">{t('startCopy.success.content')}</p>
+      </>
     )
   } catch (error) {
     console.error(error)

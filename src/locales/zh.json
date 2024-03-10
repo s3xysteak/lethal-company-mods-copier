@@ -2,7 +2,10 @@
   "startCopy": {
     "common": "点击复制mod到游戏目录",
     "loading": "加载中...",
-    "success": "处理成功 !",
+    "success": {
+      "title": "处理成功 !",
+      "content": "现在可以关闭程序并开始游戏了 !"
+    },
     "error": "发生错误"
   }
 }
