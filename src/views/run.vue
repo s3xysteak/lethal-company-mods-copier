@@ -19,17 +19,25 @@ const { modal, modalCtx } = useModal()
 
 const loading = ref(false)
 
+async function usePath() {
+  const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
+
+  const fileNameList = await getFilesName()
+
+  return {
+    gamePath,
+    fileNameList: fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item)),
+  }
+}
+
 async function run() {
   loading.value = true
 
   try {
-    const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
-
-    const currentDirFilesNameList = await getFilesName()
-
-    const fileNameList = currentDirFilesNameList.filter(item =>
-      FILES_NAME_WHITE_LIST.includes(item),
-    )
+    const {
+      fileNameList,
+      gamePath,
+    } = await usePath()
 
     for (const name of fileNameList)
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
