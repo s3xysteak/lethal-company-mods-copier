@@ -1,38 +1,46 @@
 {
   "name": "lethal-company-mods-copier",
-  "private": true,
-  "version": "0.0.5",
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/s3xysteak/lethal-company-mods-copier.git"
-  },
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "test": "vitest",
+    "test:once": "vitest run",
+    "check": "tsc --incremental --noEmit",
     "preview": "vite preview",
     "tauri": "tauri",
-    "release": "esno ./scripts/release.ts"
+    "release": "esno ./scripts/release.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@node-steam/vdf": "^2.2.0",
-    "@tauri-apps/api": "^1.5.3",
+    "@tauri-apps/api": "2.0.0-beta.6",
+    "@tauri-apps/plugin-fs": "2.0.0-beta.2",
+    "@tauri-apps/plugin-os": "2.0.0-beta.2",
+    "@tauri-apps/plugin-shell": "2.0.0-beta.2",
     "vue": "^3.4.21",
-    "vue-i18n": "^9.10.1"
+    "vue-i18n": "^9.10.2"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.11.6",
     "@iconify-json/carbon": "^1.1.31",
-    "@tauri-apps/cli": "^1.5.10",
-    "@unocss/reset": "^0.58.5",
-    "@unocss/transformer-directives": "^0.58.5",
+    "@tauri-apps/cli": "2.0.0-beta.11",
+    "@types/node": "^20.12.2",
+    "@unocss/eslint-plugin": "0.59.0-beta.1",
+    "@unocss/reset": "0.59.0-beta.1",
+    "@unocss/transformer-directives": "0.59.0-beta.1",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "daisyui": "^3.9.4",
-    "typescript": "^5.3.3",
-    "unocss": "^0.58.5",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.3",
+    "unocss": "0.59.0-beta.1",
     "unocss-preset-daisy": "^7.0.0",
     "unplugin-auto-import": "^0.17.5",
-    "vite": "^5.1.5",
-    "vue-tsc": "^1.8.27"
+    "vite": "^5.2.7",
+    "vue-tsc": "^2.0.7"
   }
 }

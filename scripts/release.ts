@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { execSync } from 'node:child_process'
 
 const versionList = ['major', 'minor', 'patch'] as const
@@ -11,7 +12,7 @@ if (!versionList.includes(version)) {
 }
 
 execSync(`pnpx tauri-version ${version} -m "release: v%s"`, {
-  stdio: 'inherit'
+  stdio: 'inherit',
 })
 execSync('git push --tags', { stdio: 'inherit' })
 execSync('git push', { stdio: 'inherit' })

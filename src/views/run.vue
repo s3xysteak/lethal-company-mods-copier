@@ -1,5 +1,6 @@
 <script setup lang="tsx">
-import { getGamePath, copyFiles, getCurrentDirFilesNameList } from '../utils'
+import { copyFiles, getFilesName } from '../utils/io.ts'
+import { getGamePath } from '../utils/path.ts'
 import { useModal } from '../components/useModal.tsx'
 
 const { t } = useI18n()
@@ -11,7 +12,7 @@ const FILES_NAME_WHITE_LIST = [
   'BepInEx',
   'doorstop_config.ini',
   'mods.yml',
-  'winhttp.dll'
+  'winhttp.dll',
 ]
 
 const { modal, modalCtx } = useModal()
@@ -24,36 +25,36 @@ async function run() {
   try {
     const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
-    const currentDirFilesNameList = await getCurrentDirFilesNameList()
+    const currentDirFilesNameList = await getFilesName()
 
     const fileNameList = currentDirFilesNameList.filter(item =>
-      FILES_NAME_WHITE_LIST.includes(item)
+      FILES_NAME_WHITE_LIST.includes(item),
     )
 
-    for (const name of fileNameList) {
+    for (const name of fileNameList)
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
-    }
 
     modal(
       <>
-        <div class="flex items-center gap-x-2 font-bold text-lg">
-          <div class="bg-green i-carbon-checkmark-outline" />
+        <div class="flex items-center gap-x-2 text-lg font-bold">
+          <div class="i-carbon-checkmark-outline bg-green" />
           {t('startCopy.success.title')}
         </div>
         <p class="py-4">{t('startCopy.success.content')}</p>
-      </>
+      </>,
     )
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
 
     modal(
       <>
-        <h3 class="flex items-center gap-x-2 font-bold text-lg">
-          <div class="bg-red-5 i-carbon-close-outline" />
+        <h3 class="flex items-center gap-x-2 text-lg font-bold">
+          <div class="i-carbon-close-outline bg-red-5" />
           {t('startCopy.error')}
         </h3>
         <p class="py-4">{String(error)}</p>
-      </>
+      </>,
     )
   }
 
@@ -67,9 +68,13 @@ async function run() {
 
     <button :disabled="loading" class="btn" @click="run">
       <span v-show="loading" class="loading" />
-      <div v-show="loading">{{ t('startCopy.loading') }}</div>
+      <div v-show="loading">
+        {{ t('startCopy.loading') }}
+      </div>
 
-      <div v-show="!loading">{{ t('startCopy.common') }}</div>
+      <div v-show="!loading">
+        {{ t('startCopy.common') }}
+      </div>
     </button>
   </div>
-</template>
+</template>../utils/path.ts
