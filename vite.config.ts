@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 
 import UnoCSS from 'unocss/vite'
 
@@ -14,6 +15,9 @@ export default defineConfig(async () => ({
     AutoImport({
       imports: ['vue', 'vue-i18n'],
       dts: 'types/auto-imports.d.ts',
+    }),
+    Components({
+      dts: 'types/components.d.ts',
     }),
   ],
 

@@ -30,7 +30,7 @@ async function usePath() {
   }
 }
 
-async function run() {
+async function copy() {
   loading.value = true
 
   try {
@@ -74,15 +74,8 @@ async function run() {
   <div h-100vh w-100vw flex="~ center">
     <modalCtx />
 
-    <button :disabled="loading" class="btn" @click="run">
-      <span v-show="loading" class="loading" />
-      <div v-show="loading">
-        {{ t('startCopy.loading') }}
-      </div>
-
-      <div v-show="!loading">
-        {{ t('startCopy.common') }}
-      </div>
-    </button>
+    <Button :disabled="loading" :loading="loading" @click="copy">
+      {{ t('startCopy.common') }}
+    </Button>
   </div>
 </template>../utils/path.ts
