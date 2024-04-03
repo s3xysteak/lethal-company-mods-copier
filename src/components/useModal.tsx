@@ -1,5 +1,5 @@
 import { Teleport } from 'vue'
-import type { VNode, Component } from 'vue'
+import type { Component, VNode } from 'vue'
 
 export function useModal() {
   const dialogVNode = ref()
@@ -11,7 +11,7 @@ export function useModal() {
         <dialog ref={modalRef} class="modal">
           <div class="modal-box">
             <form method="dialog">
-              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              <button class="absolute right-2 top-2 btn btn-circle btn-ghost btn-sm">
                 ✕
               </button>
             </form>

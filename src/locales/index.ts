@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 const _modules = import.meta.glob('./*.json', {
   eager: true,
-  import: 'default'
+  import: 'default',
 })
 
 export const i18nMessage = Object.entries(_modules).reduce(
@@ -11,12 +11,12 @@ export const i18nMessage = Object.entries(_modules).reduce(
     acc[keyArr[keyArr.length - 1].replace('.json', '')] = val
     return acc
   },
-  {} as Record<string, any>
+  {} as Record<string, any>,
 )
 
 export default createI18n({
   legacy: false,
   locale: 'zh',
   fallbackLocale: 'en',
-  messages: i18nMessage
+  messages: i18nMessage,
 })

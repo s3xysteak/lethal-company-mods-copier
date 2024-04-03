@@ -1,5 +1,7 @@
 <script setup lang="tsx">
-import { getGamePath, copyFiles, getCurrentDirFilesNameList } from '../utils'
+import { remove } from '@tauri-apps/plugin-fs'
+import { copyFiles, getFilesName } from '../utils/io.ts'
+import { getGamePath } from '../utils/path.ts'
 import { useModal } from '../components/useModal.tsx'
 
 const { t } = useI18n()
@@ -11,53 +13,113 @@ const FILES_NAME_WHITE_LIST = [
   'BepInEx',
   'doorstop_config.ini',
   'mods.yml',
-  'winhttp.dll'
+  'winhttp.dll',
 ]
 
 const { modal, modalCtx } = useModal()
 
-const loading = ref(false)
+async function usePath() {
+  const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
-async function run() {
+  const fileNameList = await getFilesName()
+
+  return {
+    gamePath,
+    fileNameList: fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item)),
+  }
+}
+
+interface ModalComponentProps {
+  title: string
+  titleIconClass: string
+  content: string
+}
+const ModalComponent = defineComponent((props: ModalComponentProps) => {
+  return () => (
+    <>
+      <h3 class="flex items-center gap-x-2 text-lg font-bold">
+        <div class={props.titleIconClass} />
+        {props.title}
+      </h3>
+      <p class="py-4">{props.content}</p>
+    </>
+  )
+}, {
+  props: ['title', 'titleIconClass', 'content'],
+})
+
+const loading = ref(false)
+async function onCopy() {
   loading.value = true
 
-  try {
-    const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
+  const copy = async () => {
+    const {
+      fileNameList,
+      gamePath,
+    } = await usePath()
 
-    const currentDirFilesNameList = await getCurrentDirFilesNameList()
-
-    const fileNameList = currentDirFilesNameList.filter(item =>
-      FILES_NAME_WHITE_LIST.includes(item)
-    )
-
-    for (const name of fileNameList) {
+    for (const name of fileNameList)
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
-    }
 
     modal(
-      <>
-        <div class="flex items-center gap-x-2 font-bold text-lg">
-          <div class="bg-green i-carbon-checkmark-outline" />
-          {t('startCopy.success.title')}
-        </div>
-        <p class="py-4">{t('startCopy.success.content')}</p>
-      </>
-    )
-  } catch (error) {
-    console.error(error)
-
-    modal(
-      <>
-        <h3 class="flex items-center gap-x-2 font-bold text-lg">
-          <div class="bg-red-5 i-carbon-close-outline" />
-          {t('startCopy.error')}
-        </h3>
-        <p class="py-4">{String(error)}</p>
-      </>
+      <ModalComponent
+        titleIconClass="i-carbon-checkmark-outline bg-green"
+        title={t('startCopy.success.title')}
+        content={t('startCopy.success.content')}
+      />,
     )
   }
 
+  await copy().catch((error) => {
+    console.error(error)
+
+    modal(
+      <ModalComponent
+        titleIconClass="i-carbon-close-outline bg-red-5"
+        title={t('startCopy.error')}
+        content={String(error)}
+      />,
+    )
+  })
+
   loading.value = false
+}
+
+const loadingDelete = ref(false)
+async function onDelete() {
+  loadingDelete.value = true
+
+  const del = async () => {
+    const {
+      fileNameList,
+      gamePath,
+    } = await usePath()
+
+    for (const name of fileNameList)
+      await remove(`${gamePath}\\${name}`, { recursive: true })
+
+    modal(
+      <ModalComponent
+        titleIconClass="i-carbon-checkmark-outline bg-green"
+        title={t('startCopy.success.title')}
+        content={t('startCopy.success.content')}
+      />,
+    )
+  }
+
+  await del().catch((error) => {
+    console.error(error)
+
+    modal(
+      <ModalComponent
+        titleIconClass="i-carbon-close-outline bg-red-5"
+        title={t('startCopy.error')}
+        content={String(error)}
+      />,
+    )
+  })
+
+  loadingDelete.value = false
 }
 </script>
 
@@ -65,11 +127,19 @@ async function run() {
   <div h-100vh w-100vw flex="~ center">
     <modalCtx />
 
-    <button :disabled="loading" class="btn" @click="run">
-      <span v-show="loading" class="loading" />
-      <div v-show="loading">{{ t('startCopy.loading') }}</div>
-
-      <div v-show="!loading">{{ t('startCopy.common') }}</div>
-    </button>
+    <div flex="~ col gap-y-4">
+      <Button :disabled="loading" :loading="loading" @click="onCopy">
+        <div flex="~ center gap-x-2">
+          <div i-carbon-copy-file text-5 />
+          {{ t('startCopy.common') }}
+        </div>
+      </Button>
+      <Button :disabled="loadingDelete" :loading="loadingDelete" @click="onDelete">
+        <div flex="~ center gap-x-2">
+          <div i-carbon-reset text-5 />
+          {{ t('startDelete.common') }}
+        </div>
+      </Button>
+    </div>
   </div>
-</template>
+</template>../utils/path.ts
