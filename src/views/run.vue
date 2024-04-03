@@ -17,8 +17,6 @@ const FILES_NAME_WHITE_LIST = [
 
 const { modal, modalCtx } = useModal()
 
-const loading = ref(false)
-
 async function usePath() {
   const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
@@ -30,10 +28,30 @@ async function usePath() {
   }
 }
 
-async function copy() {
+interface ModalComponentProps {
+  title: string
+  titleIconClass: string
+  content: string
+}
+const ModalComponent = defineComponent((props: ModalComponentProps) => {
+  return () => (
+    <>
+      <h3 class="flex items-center gap-x-2 text-lg font-bold">
+        <div class={props.titleIconClass} />
+        {props.title}
+      </h3>
+      <p class="py-4">{props.content}</p>
+    </>
+  )
+}, {
+  props: ['title', 'titleIconClass', 'content'],
+})
+
+const loading = ref(false)
+async function onCopy() {
   loading.value = true
 
-  try {
+  const copy = async () => {
     const {
       fileNameList,
       gamePath,
@@ -43,28 +61,25 @@ async function copy() {
       await copyFiles(`.\\${name}`, `${gamePath}\\${name}`)
 
     modal(
-      <>
-        <div class="flex items-center gap-x-2 text-lg font-bold">
-          <div class="i-carbon-checkmark-outline bg-green" />
-          {t('startCopy.success.title')}
-        </div>
-        <p class="py-4">{t('startCopy.success.content')}</p>
-      </>,
+      <ModalComponent
+        titleIconClass="i-carbon-checkmark-outline bg-green"
+        title={t('startCopy.success.title')}
+        content={t('startCopy.success.content')}
+      />,
     )
   }
-  catch (error) {
+
+  await copy().catch((error) => {
     console.error(error)
 
     modal(
-      <>
-        <h3 class="flex items-center gap-x-2 text-lg font-bold">
-          <div class="i-carbon-close-outline bg-red-5" />
-          {t('startCopy.error')}
-        </h3>
-        <p class="py-4">{String(error)}</p>
-      </>,
+      <ModalComponent
+        titleIconClass="i-carbon-close-outline bg-red-5"
+        title={t('startCopy.error')}
+        content={String(error)}
+      />,
     )
-  }
+  })
 
   loading.value = false
 }
@@ -74,7 +89,7 @@ async function copy() {
   <div h-100vh w-100vw flex="~ center">
     <modalCtx />
 
-    <Button :disabled="loading" :loading="loading" @click="copy">
+    <Button :disabled="loading" :loading="loading" @click="onCopy">
       {{ t('startCopy.common') }}
     </Button>
   </div>
