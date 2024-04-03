@@ -49,9 +49,13 @@ const ModalComponent = defineComponent((props: ModalComponentProps) => {
 })
 
 const loading = ref(false)
-async function onCopy() {
+async function useLoading(cb: () => Promise<void>) {
   loading.value = true
+  await cb()
+  loading.value = false
+}
 
+async function onCopy() {
   const copy = async () => {
     const {
       fileNameList,
@@ -81,14 +85,9 @@ async function onCopy() {
       />,
     )
   })
-
-  loading.value = false
 }
 
-const loadingDelete = ref(false)
 async function onDelete() {
-  loadingDelete.value = true
-
   const del = async () => {
     const {
       fileNameList,
@@ -118,8 +117,6 @@ async function onDelete() {
       />,
     )
   })
-
-  loadingDelete.value = false
 }
 </script>
 
@@ -128,13 +125,13 @@ async function onDelete() {
     <modalCtx />
 
     <div flex="~ col gap-y-4">
-      <Button :disabled="loading" :loading="loading" @click="onCopy">
+      <Button :disabled="loading" :loading="loading" @click="useLoading(onCopy)">
         <div flex="~ center gap-x-2">
           <div i-carbon-copy-file text-5 />
           {{ t('startCopy.common') }}
         </div>
       </Button>
-      <Button :disabled="loadingDelete" :loading="loadingDelete" @click="onDelete">
+      <Button :disabled="loading" :loading="loading" @click="useLoading(onDelete)">
         <div flex="~ center gap-x-2">
           <div i-carbon-reset text-5 />
           {{ t('startDelete.common') }}
