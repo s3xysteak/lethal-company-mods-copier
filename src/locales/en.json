@@ -1,10 +1,21 @@
 {
   "startCopy": {
     "common": "Copy mod to game directory",
-    "loading": "Loading...",
     "success": {
       "title": "Success !",
-      "content": "Now you can close the app and play with the mod !"
+      "content": "Now you can close the app and play with the mod."
+    },
+    "error": "Error"
+  },
+  "startDelete": {
+    "common": "Restore to Vanilla",
+    "success": {
+      "title": "Success !",
+      "content": "Mods in the game directory has been removed."
+    },
+    "empty": {
+      "title": "Success !",
+      "content": "Oops! No mods found in the game directory."
     },
     "error": "Error"
   },

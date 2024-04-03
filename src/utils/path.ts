@@ -23,6 +23,7 @@ export async function getSteamDirectory() {
     = 'Get-ItemProperty -Path HKLM:\\SOFTWARE\\WOW6432Node\\Valve\\Steam -Name "InstallPath"'
 
   const res = await command(steamInstallDirectoryQuery)
+
   const InstallPath = res.find(item => item.startsWith('InstallPath'))
 
   if (InstallPath === undefined)

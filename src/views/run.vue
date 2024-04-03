@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import { remove } from '@tauri-apps/plugin-fs'
 import { copyFiles, getFilesName } from '../utils/io.ts'
 import { getGamePath } from '../utils/path.ts'
 import { useModal } from '../components/useModal.tsx'
@@ -83,14 +84,62 @@ async function onCopy() {
 
   loading.value = false
 }
+
+const loadingDelete = ref(false)
+async function onDelete() {
+  loadingDelete.value = true
+
+  const del = async () => {
+    const {
+      fileNameList,
+      gamePath,
+    } = await usePath()
+
+    for (const name of fileNameList)
+      await remove(`${gamePath}\\${name}`, { recursive: true })
+
+    modal(
+      <ModalComponent
+        titleIconClass="i-carbon-checkmark-outline bg-green"
+        title={t('startCopy.success.title')}
+        content={t('startCopy.success.content')}
+      />,
+    )
+  }
+
+  await del().catch((error) => {
+    console.error(error)
+
+    modal(
+      <ModalComponent
+        titleIconClass="i-carbon-close-outline bg-red-5"
+        title={t('startCopy.error')}
+        content={String(error)}
+      />,
+    )
+  })
+
+  loadingDelete.value = false
+}
 </script>
 
 <template>
   <div h-100vh w-100vw flex="~ center">
     <modalCtx />
 
-    <Button :disabled="loading" :loading="loading" @click="onCopy">
-      {{ t('startCopy.common') }}
-    </Button>
+    <div flex="~ col gap-y-4">
+      <Button :disabled="loading" :loading="loading" @click="onCopy">
+        <div flex="~ center gap-x-2">
+          <div i-carbon-copy-file text-5 />
+          {{ t('startCopy.common') }}
+        </div>
+      </Button>
+      <Button :disabled="loadingDelete" :loading="loadingDelete" @click="onDelete">
+        <div flex="~ center gap-x-2">
+          <div i-carbon-reset text-5 />
+          {{ t('startDelete.common') }}
+        </div>
+      </Button>
+    </div>
   </div>
 </template>../utils/path.ts
