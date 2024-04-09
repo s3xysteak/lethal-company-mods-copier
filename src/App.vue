@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { open } from '@tauri-apps/plugin-shell'
 import { locale } from '@tauri-apps/plugin-os'
 import run from './views/run.vue'
 
@@ -21,8 +22,21 @@ locale().then((fullLang) => {
       ? lang
       : 'en'
 })
+
+const GITHUB = 'https://github.com/s3xysteak/lethal-company-mods-copier'
 </script>
 
 <template>
-  <run />
+  <div>
+    <div absolute right-10 top-10 class="tooltip tooltip-bottom" data-tip="Open in Github">
+      <a
+        class="btn btn-circle btn-ghost"
+        :href="GITHUB" alt="Open in Github"
+        @click.prevent="open(GITHUB)"
+      >
+        <div i-carbon-logo-github text-6 />
+      </a>
+    </div>
+    <run />
+  </div>
 </template>
