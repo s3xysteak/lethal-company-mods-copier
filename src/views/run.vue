@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { remove } from '@tauri-apps/plugin-fs'
+import { exists, remove } from '@tauri-apps/plugin-fs'
 import { copyFiles, getFilesName } from '../utils/io.ts'
 import { getGamePath } from '../utils/path.ts'
 import { useModal } from '../components/useModal.tsx'
@@ -95,7 +95,7 @@ async function onDelete() {
     } = await usePath()
 
     for (const name of fileNameList)
-      await remove(`${gamePath}\\${name}`, { recursive: true })
+      await exists(`${gamePath}\\${name}`) && await remove(`${gamePath}\\${name}`, { recursive: true })
 
     modal(
       <ModalComponent
