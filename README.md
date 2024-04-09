@@ -2,11 +2,15 @@
 
 English | [简体中文](./README-zh.md)
 
-Not tested on Mac and Linux. As a developer, I guess this program can only run on Windows 10/11.
+## Features
+
+This program will copy mod files and folders in the same directory to the game directory of Lethal Company. This is useful for distributing and facilitating installation for friends who are too lazy to install `r2modman` after creating mod packs with `r2modman`.
 
 ## :warning: Notes
 
 The program will copy files, so you should not run programs from suspicious sources. Make sure this program comes from the release of this repository, as this is the only official way. If you are a user of the mod pack, make sure the mod pack comes from a source you trust.
+
+Not tested on Mac and Linux. As a developer, I guess this program can only run on Windows 10/11.
 
 ## Usage
 
@@ -28,7 +32,3 @@ The program will copy files, so you should not run programs from suspicious sour
 ```
 
 - Run `lethal-company-mods-copier.exe`, click the button and wait for it to finish. You can close the program directly after completion.
-
-## Features
-
-This program will copy mod files and folders in the same directory to the game directory of Lethal Company. This is useful for distributing and facilitating installation for friends who are too lazy to install `r2modman` after creating mod packs with `r2modman`.
