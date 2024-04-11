@@ -1,35 +1,32 @@
-import { Command } from '@tauri-apps/plugin-shell'
 import { readTextFile } from '@tauri-apps/plugin-fs'
 import { parse } from '@node-steam/vdf'
+import { invoke } from '@tauri-apps/api/core'
 
-export function command(cmd: string) {
-  return new Promise<string[]>((resolve) => {
-    const result: string[] = []
-
-    const command = Command.create('powershell', cmd.split(' '))
-    command.stdout.on('data', (res) => {
-      result.push(res)
-    })
-    command.on('close', () => {
-      resolve(result)
-    })
-
-    command.spawn()
-  })
+export async function powershell(cmd: string) {
+  return invoke<string>('powershell', { command: cmd })
 }
 
 export async function getSteamDirectory() {
   const steamInstallDirectoryQuery
     = 'Get-ItemProperty -Path HKLM:\\SOFTWARE\\WOW6432Node\\Valve\\Steam -Name "InstallPath"'
 
-  const res = await command(steamInstallDirectoryQuery)
+  try {
+    const res = await powershell(steamInstallDirectoryQuery)
+    let index = res.indexOf('InstallPath')
+    if (index !== -1)
+      index = res.indexOf(':', index) + 1
+    else
+      throw new Error('Steam not found')
 
-  const InstallPath = res.find(item => item.startsWith('InstallPath'))
+    const startIndex = index
+    const endIndex = res.indexOf('\r\n', index)
+    const InstallPath = res.substring(startIndex, endIndex).trim()
 
-  if (InstallPath === undefined)
-    throw new Error('Failed to get the Steam directory')
-
-  return InstallPath && InstallPath.slice(InstallPath.indexOf(':') + 1).trim()
+    return InstallPath
+  }
+  catch (e) {
+    throw new Error(`Failed to get the Steam directory${String(e)}`)
+  }
 }
 
 interface LibraryFoldersItem {
