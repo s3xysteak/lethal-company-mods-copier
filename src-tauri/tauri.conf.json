@@ -1,6 +1,6 @@
 {
   "productName": "lethal-company-mods-copier",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "identifier": "s3xysteak",
   "build": {
     "beforeDevCommand": "pnpm dev",
