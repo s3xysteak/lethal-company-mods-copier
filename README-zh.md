@@ -14,7 +14,7 @@
 
 ## 使用
 
-- 在 release 中下载编译后的 exe 文件。
+- 从 [最新的release](https://github.com/s3xysteak/lethal-company-mods-copier/releases) 中下载编译后的 `lethal-company-mods-copier.exe` 文件。
 - 准备好你的 mod 包。
 - 确保你已经安装好致命公司。
 - 将编译后的文件放入 mod 包同一目录下，完成后的目录看起来应该像这样：

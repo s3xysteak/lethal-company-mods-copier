@@ -14,7 +14,7 @@ Not tested on Mac and Linux. As a developer, I guess this program can only run o
 
 ## Usage
 
-- Download the compiled exe file from the release.
+- Download the compiled `lethal-company-mods-copier.exe` file from [the latest release](https://github.com/s3xysteak/lethal-company-mods-copier/releases).
 - Prepare your mod pack.
 - Make sure you have Lethal Company installed.
 - Place the compiled file in the same directory as the mod pack. The directory should look like this when finished:
