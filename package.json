@@ -11,7 +11,7 @@
     "check": "tsc --incremental --noEmit",
     "preview": "vite preview",
     "tauri": "tauri",
-    "release": "esno ./scripts/release.ts",
+    "release": "bumpp",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -34,6 +34,7 @@
     "@unocss/transformer-directives": "0.58.9",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "bumpp": "^9.6.1",
     "daisyui": "^3.9.4",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5",
