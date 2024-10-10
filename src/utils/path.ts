@@ -1,17 +1,13 @@
 import { parse } from '@node-steam/vdf'
-import { invoke } from '@tauri-apps/api/core'
 import { readTextFile } from '@tauri-apps/plugin-fs'
-
-export async function powershell(cmd: string) {
-  return invoke<string>('powershell', { command: cmd })
-}
+import { Command } from '@tauri-apps/plugin-shell'
 
 export async function getSteamDirectory() {
   const steamInstallDirectoryQuery
     = 'Get-ItemProperty -Path HKLM:\\SOFTWARE\\WOW6432Node\\Valve\\Steam -Name "InstallPath"'
 
   try {
-    const res = await powershell(steamInstallDirectoryQuery)
+    const { stdout: res } = await Command.create('powershell', steamInstallDirectoryQuery).execute()
     let index = res.indexOf('InstallPath')
     if (index !== -1)
       index = res.indexOf(':', index) + 1
@@ -25,7 +21,7 @@ export async function getSteamDirectory() {
     return InstallPath
   }
   catch (e) {
-    throw new Error(`Failed to get the Steam directory${String(e)}`)
+    throw new Error(`Failed to get the Steam directory\n${String(e)}`)
   }
 }
 
