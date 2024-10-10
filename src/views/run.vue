@@ -5,10 +5,9 @@ import { useModal } from '../components/useModal.tsx'
 import { copyFiles, getFilesName } from '../utils/io.ts'
 import { getGamePath } from '../utils/path.ts'
 
+const { modal, modalCtx } = useModal()
 const { t } = useI18n()
-
 const LETHAL_COMPANY_STEAM_CODE = '1966720'
-
 const FILES_NAME_WHITE_LIST = [
   '_state',
   'BepInEx',
@@ -16,10 +15,9 @@ const FILES_NAME_WHITE_LIST = [
   'mods.yml',
   'winhttp.dll',
 ]
+const base = ref('./')
 
-const { modal, modalCtx } = useModal()
-
-async function usePath() {
+async function createPath() {
   const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
   const fileNameList = await getFilesName()
@@ -29,6 +27,7 @@ async function usePath() {
     fileNameList: fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item)),
   }
 }
+const { fileNameList, gamePath } = await createPath()
 
 interface ModalComponentProps {
   title: string
@@ -58,13 +57,8 @@ async function useLoading(cb: () => Promise<void>) {
 
 async function onCopy() {
   const copy = async () => {
-    const {
-      fileNameList,
-      gamePath,
-    } = await usePath()
-
     for (const name of fileNameList)
-      await copyFiles(`./${name}`, join(gamePath, name))
+      await copyFiles(join(base.value, name), join(base.value, gamePath, name))
 
     modal(
       <ModalComponent
@@ -90,13 +84,10 @@ async function onCopy() {
 
 async function onDelete() {
   const del = async () => {
-    const {
-      fileNameList,
-      gamePath,
-    } = await usePath()
-
-    for (const name of fileNameList)
-      await exists(join(gamePath, name)) && await remove(join(gamePath, name), { recursive: true })
+    for (const name of fileNameList) {
+      await exists(join(base.value, gamePath, name))
+      && await remove(join(base.value, gamePath, name), { recursive: true })
+    }
 
     modal(
       <ModalComponent

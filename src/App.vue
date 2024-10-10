@@ -37,6 +37,9 @@ const GITHUB = 'https://github.com/s3xysteak/lethal-company-mods-copier'
         <div i-carbon-logo-github text-6 />
       </a>
     </div>
-    <run />
+
+    <Suspense>
+      <run />
+    </Suspense>
   </div>
 </template>
