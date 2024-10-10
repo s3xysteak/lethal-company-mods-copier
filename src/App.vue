@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { open } from '@tauri-apps/plugin-shell'
 import { locale } from '@tauri-apps/plugin-os'
-import run from './views/run.vue'
-
+import { open } from '@tauri-apps/plugin-shell'
 import { i18nMessage } from './locales'
+
+import run from './views/run.vue'
 
 const { locale: userLanguage } = useI18n({ useScope: 'global' })
 

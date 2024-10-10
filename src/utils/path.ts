@@ -1,6 +1,6 @@
-import { readTextFile } from '@tauri-apps/plugin-fs'
 import { parse } from '@node-steam/vdf'
 import { invoke } from '@tauri-apps/api/core'
+import { readTextFile } from '@tauri-apps/plugin-fs'
 
 export async function powershell(cmd: string) {
   return invoke<string>('powershell', { command: cmd })

@@ -1,8 +1,8 @@
 <script setup lang="tsx">
 import { exists, remove } from '@tauri-apps/plugin-fs'
+import { useModal } from '../components/useModal.tsx'
 import { copyFiles, getFilesName } from '../utils/io.ts'
 import { getGamePath } from '../utils/path.ts'
-import { useModal } from '../components/useModal.tsx'
 
 const { t } = useI18n()
 

@@ -1,5 +1,5 @@
-import { Teleport } from 'vue'
 import type { Component, VNode } from 'vue'
+import { Teleport } from 'vue'
 
 export function useModal() {
   const dialogVNode = ref()
