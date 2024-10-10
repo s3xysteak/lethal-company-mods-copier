@@ -6,8 +6,9 @@ import {
   remove,
   stat,
 } from '@tauri-apps/plugin-fs'
+import { join } from 'pathe'
 
-export async function getFilesName(path = '.\\') {
+export async function getFilesName(path = './') {
   const res = await readDir(path)
   return res
     .map(item => item.name)
@@ -31,9 +32,9 @@ export async function copyFiles(from: string, dest: string) {
 
     for (const file of files) {
       if (file.isDirectory)
-        await copyFiles(`${from}\\${file.name}`, `${dest}\\${file.name}`)
+        await copyFiles(join(from, file.name), join(dest, file.name))
       else
-        await copyFile(`${from}\\${file.name}`, `${dest}\\${file.name}`)
+        await copyFile(join(from, file.name), join(dest, file.name))
     }
   }
   else {

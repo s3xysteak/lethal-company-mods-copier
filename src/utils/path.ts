@@ -1,6 +1,7 @@
 import { parse } from '@node-steam/vdf'
 import { readTextFile } from '@tauri-apps/plugin-fs'
 import { Command } from '@tauri-apps/plugin-shell'
+import { join, normalize } from 'pathe'
 
 export async function getSteamDirectory() {
   const steamInstallDirectoryQuery
@@ -43,7 +44,7 @@ export async function getGamePath(gameCode: string) {
 
   const getGameBasePath = async () => {
     const contents = await readTextFile(
-      `${steamPath}\\steamapps\\libraryfolders.vdf`,
+      join(steamPath, 'steamapps/libraryfolders.vdf'),
     )
 
     let path = ''
@@ -56,13 +57,13 @@ export async function getGamePath(gameCode: string) {
       },
     )
 
-    return path
+    return normalize(path)
   }
   const basePath = await getGameBasePath()
 
   const getInstallDir = async () => {
     const contents = await readTextFile(
-      `${basePath}\\steamapps\\appmanifest_${gameCode}.acf`,
+      join(basePath, `steamapps/appmanifest_${gameCode}.acf`),
     )
 
     const appManifest: AppManifest = parse(contents).AppState
@@ -70,5 +71,5 @@ export async function getGamePath(gameCode: string) {
   }
   const installDir = await getInstallDir()
 
-  return `${basePath}\\steamapps\\common\\${installDir}`
+  return join(basePath, 'steamapps/common/', installDir)
 }

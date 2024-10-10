@@ -21,6 +21,7 @@
     "@tauri-apps/plugin-fs": "2.0.0",
     "@tauri-apps/plugin-os": "2.0.0",
     "@tauri-apps/plugin-shell": "2.0.0",
+    "pathe": "^1.1.2",
     "vue": "^3.5.11",
     "vue-i18n": "^10.0.4"
   },
