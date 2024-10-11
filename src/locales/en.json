@@ -3,7 +3,7 @@
   "loading": "Loading...",
   "modsFolder": "Select mods folder",
   "startCopy": {
-    "common": "Copy mod to game directory",
+    "common": "Install Mods",
     "error": "Error",
     "success": {
       "content": "Now you can close the app and play with the mod.",
@@ -11,7 +11,7 @@
     }
   },
   "startDelete": {
-    "common": "Restore to Vanilla",
+    "common": "Restore",
     "empty": {
       "content": "Oops! No mods found in the game directory.",
       "title": "Success !"
