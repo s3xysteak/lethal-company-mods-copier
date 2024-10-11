@@ -1,23 +1,25 @@
 {
+  "currentFolder": "Current Folder",
+  "loading": "Loading...",
+  "modsFolder": "Select mods folder",
   "startCopy": {
     "common": "Copy mod to game directory",
+    "error": "Error",
     "success": {
-      "title": "Success !",
-      "content": "Now you can close the app and play with the mod."
-    },
-    "error": "Error"
+      "content": "Now you can close the app and play with the mod.",
+      "title": "Success !"
+    }
   },
   "startDelete": {
     "common": "Restore to Vanilla",
-    "success": {
-      "title": "Success !",
-      "content": "Mods in the game directory has been removed."
-    },
     "empty": {
-      "title": "Success !",
-      "content": "Oops! No mods found in the game directory."
+      "content": "Oops! No mods found in the game directory.",
+      "title": "Success !"
     },
-    "error": "Error"
-  },
-  "loading": "Loading..."
+    "error": "Error",
+    "success": {
+      "content": "Mods in the game directory has been removed.",
+      "title": "Success !"
+    }
+  }
 }

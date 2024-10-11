@@ -1,23 +1,25 @@
 {
+  "currentFolder": "当前目录",
+  "loading": "加载中...",
+  "modsFolder": "选择模组目录",
   "startCopy": {
     "common": "复制mod到游戏目录",
+    "error": "发生错误",
     "success": {
-      "title": "处理成功 !",
-      "content": "现在可以关闭程序并开始游戏了。"
-    },
-    "error": "发生错误"
+      "content": "现在可以关闭程序并开始游戏了。",
+      "title": "处理成功 !"
+    }
   },
   "startDelete": {
     "common": "将游戏复原为原版",
-    "success": {
-      "title": "处理成功 !",
-      "content": "现在游戏目录下的mod已被清除。"
-    },
     "empty": {
-      "title": "处理成功 !",
-      "content": "啊哦! 看起来游戏目录下没有mod。"
+      "content": "啊哦! 看起来游戏目录下没有mod。",
+      "title": "处理成功 !"
     },
-    "error": "发生错误"
-  },
-  "loading": "加载中..."
+    "error": "发生错误",
+    "success": {
+      "content": "现在游戏目录下的mod已被清除。",
+      "title": "处理成功 !"
+    }
+  }
 }

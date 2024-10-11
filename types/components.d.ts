@@ -8,5 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./../src/components/Button.vue')['default']
+    FolderSelect: typeof import('./../src/components/FolderSelect.vue')['default']
   }
 }

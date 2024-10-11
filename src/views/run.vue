@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { exists, remove } from '@tauri-apps/plugin-fs'
+import { useRefHistory } from '@vueuse/core'
 import { join } from 'pathe'
 import { useModal } from '../components/useModal.tsx'
 import { copyFiles, getFilesName } from '../utils/io.ts'
@@ -16,6 +17,7 @@ const FILES_NAME_WHITE_LIST = [
   'winhttp.dll',
 ]
 const base = ref('./')
+const { undo, canUndo } = useRefHistory(base)
 
 async function createPath() {
   const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
@@ -27,7 +29,6 @@ async function createPath() {
     fileNameList: fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item)),
   }
 }
-const { fileNameList, gamePath } = await createPath()
 
 interface ModalComponentProps {
   title: string
@@ -57,6 +58,8 @@ async function useLoading(cb: () => Promise<void>) {
 
 async function onCopy() {
   const copy = async () => {
+    const { fileNameList, gamePath } = await createPath()
+
     for (const name of fileNameList)
       await copyFiles(join(base.value, name), join(base.value, gamePath, name))
 
@@ -84,6 +87,8 @@ async function onCopy() {
 
 async function onDelete() {
   const del = async () => {
+    const { fileNameList, gamePath } = await createPath()
+
     for (const name of fileNameList) {
       await exists(join(base.value, gamePath, name))
       && await remove(join(base.value, gamePath, name), { recursive: true })
@@ -116,7 +121,18 @@ async function onDelete() {
   <div h-100vh w-100vw flex="~ center">
     <modalCtx />
 
-    <div flex="~ col gap-y-4">
+    <div w-80 flex="~ col gap-y-4">
+      <div h-12 flex rounded-2 shadow>
+        <button class="btn" rounded-r-none :disabled="!canUndo" @click="undo">
+          <div i-carbon-return />
+        </button>
+
+        <FolderSelect
+          v-model="base"
+          grow rounded-r-2
+        />
+      </div>
+
       <Button :disabled="loading" :loading="loading" @click="useLoading(onCopy)">
         <div flex="~ center gap-x-2">
           <div i-carbon-copy-file text-5 />
