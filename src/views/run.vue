@@ -74,7 +74,9 @@ async function onCopy() {
       <ModalComponent
         titleIconClass="i-carbon-checkmark-outline bg-green"
         title={t('startCopy.success.title')}
-        content={`${t('copied')} ${times} ${t('files')}${t('.')}\n${t('startCopy.success.content')}`}
+        content={`${times === 0
+          ? t('startCopy.success.empty')
+          : t('startCopy.success.counts', { counts: times })}\n${t('startCopy.success.content')}`}
       />,
     )
   }

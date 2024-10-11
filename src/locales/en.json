@@ -7,6 +7,8 @@
     "error": "Error",
     "success": {
       "content": "Now you can close the app and play with the mod.",
+      "counts": "Copied {counts} files.",
+      "empty": "Oops! No mods found in the directory.",
       "title": "Success !"
     }
   },
@@ -21,8 +23,5 @@
       "content": "Mods in the game directory has been removed.",
       "title": "Success !"
     }
-  },
-  "copied": "Copied",
-  "files": "files",
-  ".": "."
+  }
 }
