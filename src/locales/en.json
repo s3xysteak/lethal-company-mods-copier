@@ -21,5 +21,8 @@
       "content": "Mods in the game directory has been removed.",
       "title": "Success !"
     }
-  }
+  },
+  "copied": "Copied",
+  "files": "files",
+  ".": "."
 }

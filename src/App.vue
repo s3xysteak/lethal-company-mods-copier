@@ -44,8 +44,8 @@ const langMap: Record<string, string> = {
     </div>
 
     <div absolute right-30 top-10 class="dropdown-hover dropdown">
-      <label tabindex="0" class="m-1 btn btn-circle btn-ghost">
-        <div i-carbon-language />
+      <label tabindex="0" class="mb-1 btn btn-circle btn-ghost">
+        <div i-carbon-language text-6 />
       </label>
 
       <ul class="dropdown-content p-2 shadow menu rounded-box">

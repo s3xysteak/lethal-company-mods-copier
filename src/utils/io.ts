@@ -24,6 +24,8 @@ export async function copyFiles(from: string, dest: string) {
   const isDir = await isDirectory(from)
   const isExist = await exists(dest)
 
+  let counts = 0
+
   if (isDir) {
     isExist && (await remove(dest, { recursive: true }))
 
@@ -31,14 +33,24 @@ export async function copyFiles(from: string, dest: string) {
     const files = await readDir(from)
 
     for (const file of files) {
-      if (file.isDirectory)
-        await copyFiles(join(from, file.name), join(dest, file.name))
-      else
+      if (file.isDirectory) {
+        const { counts: v } = await copyFiles(join(from, file.name), join(dest, file.name))
+        counts += v
+      }
+      else {
         await copyFile(join(from, file.name), join(dest, file.name))
+        counts++
+      }
     }
   }
   else {
     isExist && (await remove(dest))
+
     await copyFile(from, dest)
+    counts++
+  }
+
+  return {
+    counts,
   }
 }

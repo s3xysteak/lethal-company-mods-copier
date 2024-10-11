@@ -22,7 +22,7 @@ const { undo, canUndo } = useRefHistory(base)
 async function createPath() {
   const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
-  const fileNameList = await getFilesName()
+  const fileNameList = await getFilesName(base.value)
 
   return {
     gamePath,
@@ -37,13 +37,17 @@ interface ModalComponentProps {
 }
 const ModalComponent = defineComponent((props: ModalComponentProps) => {
   return () => (
-    <>
+    <div class="flex flex-col gap-y-4">
       <h3 class="flex items-center gap-x-2 text-lg font-bold">
         <div class={props.titleIconClass} />
         {props.title}
       </h3>
-      <p class="py-4">{props.content}</p>
-    </>
+      <main>
+        {
+          props.content.split('\n').map(item => <p>{item}</p>)
+        }
+      </main>
+    </div>
   )
 }, {
   props: ['title', 'titleIconClass', 'content'],
@@ -59,15 +63,18 @@ async function useLoading(cb: () => Promise<void>) {
 async function onCopy() {
   const copy = async () => {
     const { fileNameList, gamePath } = await createPath()
+    let times = 0
 
-    for (const name of fileNameList)
-      await copyFiles(join(base.value, name), join(base.value, gamePath, name))
+    for (const name of fileNameList) {
+      const { counts } = await copyFiles(join(base.value, name), join(gamePath, name))
+      times += counts
+    }
 
     modal(
       <ModalComponent
         titleIconClass="i-carbon-checkmark-outline bg-green"
         title={t('startCopy.success.title')}
-        content={t('startCopy.success.content')}
+        content={`${t('copied')} ${times} ${t('files')}${t('.')}\n${t('startCopy.success.content')}`}
       />,
     )
   }
@@ -90,8 +97,8 @@ async function onDelete() {
     const { fileNameList, gamePath } = await createPath()
 
     for (const name of fileNameList) {
-      await exists(join(base.value, gamePath, name))
-      && await remove(join(base.value, gamePath, name), { recursive: true })
+      await exists(join(gamePath, name))
+      && await remove(join(gamePath, name), { recursive: true })
     }
 
     modal(
