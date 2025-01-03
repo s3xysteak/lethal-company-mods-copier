@@ -19,17 +19,6 @@ const FILES_NAME_WHITE_LIST = [
 const base = ref('./')
 const { undo, canUndo } = useRefHistory(base)
 
-async function createPath() {
-  const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
-
-  const fileNameList = await getFilesName(base.value)
-
-  return {
-    gamePath,
-    fileNameList: fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item)),
-  }
-}
-
 interface ModalComponentProps {
   title: string
   titleIconClass: string
@@ -62,10 +51,11 @@ async function useLoading(cb: () => Promise<void>) {
 
 async function onCopy() {
   const copy = async () => {
-    const { fileNameList, gamePath } = await createPath()
+    const fileNameList = await getFilesName(base.value)
+    const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
     let times = 0
 
-    for (const name of fileNameList) {
+    for (const name of fileNameList.filter(item => FILES_NAME_WHITE_LIST.includes(item))) {
       const { counts } = await copyFiles(join(base.value, name), join(gamePath, name))
       times += counts
     }
@@ -96,11 +86,11 @@ async function onCopy() {
 
 async function onDelete() {
   const del = async () => {
-    const { fileNameList, gamePath } = await createPath()
+    const gamePath = await getGamePath(LETHAL_COMPANY_STEAM_CODE)
 
-    for (const name of fileNameList) {
-      await exists(join(gamePath, name))
-      && await remove(join(gamePath, name), { recursive: true })
+    for (const name of FILES_NAME_WHITE_LIST) {
+      const p = join(gamePath, name)
+      await exists(p) && await remove(p, { recursive: true })
     }
 
     modal(
