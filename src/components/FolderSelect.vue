@@ -29,7 +29,7 @@ const isCurrentFolder = computed(() => base.value.startsWith('.') || base.value.
       {{ isCurrentFolder ? t('currentFolder') : base }}
     </p>
 
-    <div class="tooltip" :data-tip="t('modsFolder')">
+    <div class="tooltip" :data-tip="t('modsFile')">
       <button class="btn" rounded-l-none @click="pick">
         <div i-carbon-folder />
       </button>

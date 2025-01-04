@@ -5,7 +5,7 @@
   "loading-delete": "deleting...",
   "loading-copy": "copying...",
   "loading-clear-cache": "clear cache...",
-  "modsFolder": "Select mods folder",
+  "modsFile": "Select mods archive file",
   "startCopy": {
     "common": "Install Mods",
     "error": "Error",

@@ -5,7 +5,7 @@
   "loading-copy": "复制中...",
   "loading-delete": "删除中...",
   "loading-unzip": "解压中...",
-  "modsFolder": "选择模组目录",
+  "modsFile": "选择模组压缩文件",
   "startCopy": {
     "common": "复制mod到游戏目录",
     "error": "发生错误",
