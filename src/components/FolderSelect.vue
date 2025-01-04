@@ -9,7 +9,7 @@ const { t } = useI18n()
 async function pick() {
   const file = await open({
     multiple: false,
-    directory: true,
+    directory: false,
   })
 
   if (file)

@@ -1,3 +1,4 @@
+import { invoke } from '@tauri-apps/api/core'
 import {
   copyFile,
   exists,
@@ -53,4 +54,8 @@ export async function copyFiles(from: string, dest: string) {
   return {
     counts,
   }
+}
+
+export async function unzip(zipPath: string, destDir: string) {
+  await invoke('unzip', { zipPath, destDir })
 }

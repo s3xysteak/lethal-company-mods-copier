@@ -1,6 +1,10 @@
 {
   "currentFolder": "Current Folder",
-  "loading": "Loading...",
+  "loading": "loading...",
+  "loading-unzip": "unzip...",
+  "loading-delete": "deleting...",
+  "loading-copy": "copying...",
+  "loading-clear-cache": "clear cache...",
   "modsFolder": "Select mods folder",
   "startCopy": {
     "common": "Install Mods",

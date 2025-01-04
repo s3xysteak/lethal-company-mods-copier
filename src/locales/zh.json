@@ -1,9 +1,10 @@
 {
-  "": "",
-  "copied": "",
   "currentFolder": "当前目录",
-  "files": "",
   "loading": "加载中...",
+  "loading-clear-cache": "清除缓存...",
+  "loading-copy": "复制中...",
+  "loading-delete": "删除中...",
+  "loading-unzip": "解压中...",
   "modsFolder": "选择模组目录",
   "startCopy": {
     "common": "复制mod到游戏目录",

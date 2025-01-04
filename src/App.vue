@@ -3,7 +3,7 @@ import { locale } from '@tauri-apps/plugin-os'
 import { open } from '@tauri-apps/plugin-shell'
 import { i18nMessage } from './locales'
 
-import run from './views/run.vue'
+import mainVue from './views/main.vue'
 
 const { locale: userLanguage, availableLocales } = useI18n({ useScope: 'global' })
 
@@ -56,7 +56,7 @@ const langMap: Record<string, string> = {
     </div>
 
     <Suspense>
-      <run />
+      <mainVue />
     </Suspense>
   </div>
 </template>
