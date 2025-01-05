@@ -1,6 +1,6 @@
 [package]
 name = "lethal-company-mods-copier"
-version = "1.2.2"
+version = "1.2.3"
 description = "A Tauri App"
 authors = ["s3xysteak"]
 edition = "2021"
